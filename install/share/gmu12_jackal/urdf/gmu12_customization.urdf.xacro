@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+<!--Sensor Mount-->
+<link name="sensor_mount">
+  <visual>
+    <geometry>
+      <mesh filename="package://gmu12_jackal/meshes/sensor_mount.STL"/>
+    </geometry>
+    <material name="black" />
+  </visual>
+  <collision>
+    <geometry>
+      <mesh filename="package://gmu12_jackal/meshes/sensor_mount.STL"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="sensor_mount_joint" type="fixed">
+  <parent link="base_link" />
+  <child link="sensor_mount" />
+  <origin xyz="0 0 0" rpy="0 0 0" />
+</joint>
+
+<!-- Realsense Cameras and Mounts -->
+
+<xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+<xacro:include filename="$(find fath_pivot_mount_description)/urdf/lockmount.urdf.xacro" />
+ 
+<!-- Front Lockmount and camera -->
+<xacro:fath_pivot_mount prefix="realsense_front_lock" parent_link="base_link" angle="-1.5708">
+  <origin xyz="0.06 0 0.3015" rpy="0 1.5708 0" />
+</xacro:fath_pivot_mount>
+<!--
+<xacro:sensor_d435 parent="realsense_front_lock_mount" name="realsense_front">
+  <origin xyz="0 0 0" rpy="0 0 0" />
+</xacro:sensor_d435>
+-->
+<!-- Rear Lockmount and camera -->
+<xacro:fath_pivot_mount prefix="realsense_rear_lock" parent_link="base_link" angle="-1.5708">
+  <origin xyz="-0.06 0 0.3015" rpy="0 1.5708 3.14159" />
+</xacro:fath_pivot_mount>
+<!--
+<xacro:sensor_d435 parent="realsense_rear_lock_mount" name="realsense_rear">
+  <origin xyz="0 0 0" rpy="0 0 0" />
+</xacro:sensor_d435>
+-->
+<!-- Left Lockmount and camera -->
+<xacro:fath_pivot_mount prefix="realsense_left_lock" parent_link="base_link" angle="-1.5708">
+  <origin xyz="0 0.06 0.3015" rpy="0 1.5708 1.5708" />
+</xacro:fath_pivot_mount>
+<!--
+<xacro:sensor_d435 parent="realsense_left_lock_mount" name="realsense_left">
+  <origin xyz="0 0 0" rpy="0 0 0" />
+</xacro:sensor_d435>
+-->
+<!-- Right Lockmount and camera -->
+<xacro:fath_pivot_mount prefix="realsense_right_lock" parent_link="base_link" angle="-1.5708">
+  <origin xyz="0 -0.06 0.3015" rpy="0 1.5708 -1.5708" />
+</xacro:fath_pivot_mount>
+<!--
+<xacro:sensor_d435 parent="realsense_right_lock_mount" name="realsense_right">
+  <origin xyz="0 0 0" rpy="0 0 0" />
+</xacro:sensor_d435>
+-->
+
+</robot>

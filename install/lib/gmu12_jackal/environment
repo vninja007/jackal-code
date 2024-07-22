@@ -1,0 +1,14 @@
+#!/bin/bash
+
+export JACKAL_URDF_EXTRAS=$(catkin_find gmu12_jackal urdf/gmu12_customization.urdf.xacro --first-only)
+
+export JACKAL_LASER_3D=1
+export JACKAL_LASER_3D_HOST="192.168.131.20"
+export JACKAL_LASER_3D_TOPIC="points"
+export JACKAL_LASER_3D_TOWER=0
+export JACKAL_LASER_3D_MOUNT=""
+export JACKAL_LASER_3D_PREFIX=""
+export JACKAL_LASER_3D_PARENT="base_link"
+export JACKAL_LASER_3D_MODEL="vlp16"
+export JACKAL_LASER_3D_OFFSET="0 0 0.40785"
+export JACKAL_LASER_3D_RPY="0 0 0"

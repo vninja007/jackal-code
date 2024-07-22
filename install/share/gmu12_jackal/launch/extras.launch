@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <!--
+    Add any additional project-specific launch files here.
+    To install, put a copy of this file in /etc/ros/melodic/ros.d or
+    use the robot_upstart package
+  -->
+</launch>

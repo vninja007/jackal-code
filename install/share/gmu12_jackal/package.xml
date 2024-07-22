@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>gmu12_jackal</name>
+  <version>0.0.0</version>
+  <description>Jackal with 4x RealSense D435 and Velodyne VLP16</description>
+  <maintainer email="thickey@clearpathrobotics.com">Trevor Hickey</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>husky_description</exec_depend>
+
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

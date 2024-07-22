@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+import os
+import robot_upstart
+
+# Add all launch files you need to run as part of the ROS systemd job here
+# The commented-out example below shows the expected format; each launch
+# file is defined as a Python dictionary object with 'pkg' and 'launch'
+# attributes
+INSTALL_LAUNCH_FILES = [
+#  {
+#    'pkg': 'abc12_customization',
+#    'launch': 'launch/example.launch'
+#  }
+]
+
+try:
+    workspace_setup=os.environ['ROBOT_SETUP']
+except:
+    workspace_setup = '/etc/ros/setup.bash'
+
+j = robot_upstart.Job(workspace_setup=workspace_setup)
+j.generate_system_files = False                          # equivalent of the --augment flag
+j.symlink = True                                         # equivalent of the --symlink flag
+
+# add all of the launch files defined above
+for launch in INSTALL_LAUNCH_FILES:
+    j.add(package=launch['pkg'], filename=launch['launch'])
+j.install()
