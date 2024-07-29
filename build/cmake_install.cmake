@@ -133,6 +133,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/administrator/catkin_ws/build/fath_pivot_mount_description/cmake_install.cmake")
   include("/home/administrator/catkin_ws/build/gmu12_jackal/cmake_install.cmake")
   include("/home/administrator/catkin_ws/build/realsense-ros/realsense2_description/cmake_install.cmake")
+  include("/home/administrator/catkin_ws/build/simple_controller/cmake_install.cmake")
   include("/home/administrator/catkin_ws/build/realsense-ros/realsense2_camera/cmake_install.cmake")
 
 endif()

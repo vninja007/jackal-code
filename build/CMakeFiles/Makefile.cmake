@@ -21,6 +21,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "realsense-ros/realsense2_camera/catkin_generated/realsense2_camera-msg-extras.cmake.installspace.in"
   "realsense-ros/realsense2_camera/cmake/realsense2_camera-genmsg.cmake"
   "realsense-ros/realsense2_description/catkin_generated/package.cmake"
+  "simple_controller/catkin_generated/package.cmake"
   "/home/administrator/catkin_ws/devel/share/realsense2_camera/cmake/realsense2_camera-msg-paths.cmake"
   "/home/administrator/catkin_ws/src/CMakeLists.txt"
   "/home/administrator/catkin_ws/src/fath_pivot_mount_description/CMakeLists.txt"
@@ -31,6 +32,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/administrator/catkin_ws/src/realsense-ros/realsense2_camera/package.xml"
   "/home/administrator/catkin_ws/src/realsense-ros/realsense2_description/CMakeLists.txt"
   "/home/administrator/catkin_ws/src/realsense-ros/realsense2_description/package.xml"
+  "/home/administrator/catkin_ws/src/simple_controller/CMakeLists.txt"
+  "/home/administrator/catkin_ws/src/simple_controller/package.xml"
   "/opt/ros/noetic/share/actionlib/cmake/actionlib-msg-extras.cmake"
   "/opt/ros/noetic/share/actionlib/cmake/actionlibConfig-version.cmake"
   "/opt/ros/noetic/share/actionlib/cmake/actionlibConfig.cmake"
@@ -282,6 +285,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "fath_pivot_mount_description/CMakeFiles/CMakeDirectoryInformation.cmake"
   "gmu12_jackal/CMakeFiles/CMakeDirectoryInformation.cmake"
   "realsense-ros/realsense2_description/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "simple_controller/CMakeFiles/CMakeDirectoryInformation.cmake"
   "realsense-ros/realsense2_camera/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 

@@ -1,0 +1,8 @@
+prefix=/home/administrator/catkin_ws/install
+
+Name: simple_controller
+Description: Description of simple_controller
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

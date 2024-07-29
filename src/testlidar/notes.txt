@@ -1,0 +1,4 @@
+0th index = back
+25% index = right
+50% index = front
+75% index = left

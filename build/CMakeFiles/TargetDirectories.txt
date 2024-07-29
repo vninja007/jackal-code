@@ -25,6 +25,12 @@
 /home/administrator/catkin_ws/build/realsense-ros/realsense2_description/CMakeFiles/list_install_components.dir
 /home/administrator/catkin_ws/build/realsense-ros/realsense2_description/CMakeFiles/rebuild_cache.dir
 /home/administrator/catkin_ws/build/realsense-ros/realsense2_description/CMakeFiles/edit_cache.dir
+/home/administrator/catkin_ws/build/simple_controller/CMakeFiles/install/strip.dir
+/home/administrator/catkin_ws/build/simple_controller/CMakeFiles/install/local.dir
+/home/administrator/catkin_ws/build/simple_controller/CMakeFiles/install.dir
+/home/administrator/catkin_ws/build/simple_controller/CMakeFiles/list_install_components.dir
+/home/administrator/catkin_ws/build/simple_controller/CMakeFiles/rebuild_cache.dir
+/home/administrator/catkin_ws/build/simple_controller/CMakeFiles/edit_cache.dir
 /home/administrator/catkin_ws/build/realsense-ros/realsense2_camera/CMakeFiles/install/strip.dir
 /home/administrator/catkin_ws/build/realsense-ros/realsense2_camera/CMakeFiles/install.dir
 /home/administrator/catkin_ws/build/realsense-ros/realsense2_camera/CMakeFiles/rebuild_cache.dir

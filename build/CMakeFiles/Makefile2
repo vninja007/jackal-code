@@ -56,6 +56,7 @@ CMAKE_BINARY_DIR = /home/administrator/catkin_ws/build
 all: fath_pivot_mount_description/all
 all: gmu12_jackal/all
 all: realsense-ros/realsense2_description/all
+all: simple_controller/all
 all: realsense-ros/realsense2_camera/all
 
 .PHONY : all
@@ -64,6 +65,7 @@ all: realsense-ros/realsense2_camera/all
 preinstall: fath_pivot_mount_description/preinstall
 preinstall: gmu12_jackal/preinstall
 preinstall: realsense-ros/realsense2_description/preinstall
+preinstall: simple_controller/preinstall
 preinstall: realsense-ros/realsense2_camera/preinstall
 
 .PHONY : preinstall
@@ -74,6 +76,7 @@ clean: CMakeFiles/download_extra_data.dir/clean
 clean: fath_pivot_mount_description/clean
 clean: gmu12_jackal/clean
 clean: realsense-ros/realsense2_description/clean
+clean: simple_controller/clean
 clean: realsense-ros/realsense2_camera/clean
 
 .PHONY : clean
@@ -241,6 +244,24 @@ realsense-ros/realsense2_description/preinstall:
 realsense-ros/realsense2_description/clean:
 
 .PHONY : realsense-ros/realsense2_description/clean
+
+#=============================================================================
+# Directory level rules for directory simple_controller
+
+# Recursive "all" directory target.
+simple_controller/all:
+
+.PHONY : simple_controller/all
+
+# Recursive "preinstall" directory target.
+simple_controller/preinstall:
+
+.PHONY : simple_controller/preinstall
+
+# Recursive "clean" directory target.
+simple_controller/clean:
+
+.PHONY : simple_controller/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/doxygen.dir
