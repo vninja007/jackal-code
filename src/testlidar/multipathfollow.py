@@ -27,34 +27,25 @@ def callback(data):
         peaks = [0] + peaks
     if np.sign(np.diff(mmWave))[-1] > 0 and mmWave[-1] > 2:
         peaks = peaks + [299]
-    print('peaks', [0.401 * (i-150) for i in peaks])
+#    print('peaks', [0.401 * (i-150) for i in peaks])
+
+    newpeaks = []
+    for x in peaks:
+        leftbad = abs((mmWave[x]-mmWave[max(0,x-25)])/mmWave[x])>.6 and mmWave[max(0,x-25)]<4
+        rightbad = abs((mmWave[x]-mmWave[min(299,x+25)])/mmWave[x])>.6 and mmWave[min(299,x+25)]<4
+        #print(0.4*(x-150), leftbad, rightbad)
+        if(leftbad and not rightbad):
+            newpeaks.append(min(299,x+60))
+        elif(rightbad and not leftbad):
+            newpeaks.append(max(0, x-60))
+        elif(not rightbad and not leftbad):
+            newpeaks.append(x)
 
 
-
-
-    x = np.argmax(mmWave)
-
-
-    leftbad = ((mmWave[x]-mmWave[max(0,x-10)])/mmWave[x])>.3
-    rightbad = ((mmWave[x]-mmWave[min(299,x+10)])/mmWave[x])>.3
-    #print(leftbad,rightbad)
-
-
-    print(leftbad,rightbad)
-
-    if(leftbad and not rightbad):
-        realx = min(299,x+75)
-    elif(rightbad and not leftbad):
-        realx = max(0, x-75)
-    else:
-        realx = x
-
-
-
-
+    peaks = [0.401 * (x-150) for x in newpeaks]
     #print('x', x, 'realx', realx)
-    #print(f'left = {round(data.ranges[leftind],2)}, front = {round(data.ranges[frontind],2)}, right = {round(data.ranges[rightind],2)}, \nhead = {0.401 * (x-150)}, \nrealhead = {0.401 * (realx-150)}')
-
+    print(f'left = {round(data.ranges[leftind],2)}, front = {round(data.ranges[frontind],2)}, right = {round(data.ranges[rightind],2)}')
+    print('peaks', peaks)
     #m = min(ranges)
 
 
@@ -67,3 +58,4 @@ def listener():
 
 if __name__ == '__main__':
     listener()
+
