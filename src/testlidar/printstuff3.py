@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-
+from scipy.signal import savgol_filter as sgf
 import rospy
+import numpy
 from sensor_msgs.msg import LaserScan
 def callback(data):
     #print(type(list(data)))
@@ -14,13 +15,28 @@ def callback(data):
     rightind = len(ranges)//3
     frontind = len(data.ranges)//2
     print(rightind, leftind)
-    mmWave = data.ranges[rightind:leftind+1][::-1][:300]
+    mmWave = [i if i!=float('inf') else 0 for i in data.ranges[rightind:leftind+1][::-1][:300]]
 
-    print(len(mmWave)/len(data.ranges))
+    #assert len(mmWave)==300
+    mmWave = sgf(sgf(mmWave,13,5),13,5)
+    x = numpy.argmax(mmWave)
+
+    leftbad = ((mmWave[x]-mmWave[max(0,x-10)])/mmWave[x])>.3
+    rightbad = ((mmWave[x]-mmWave[min(299,x+10)])/mmWave[x])>.3
+    #print(leftbad,rightbad)
 
 
     print('\n'.join(str(i) for i in mmWave))
-    print(f'left = {round(data.ranges[leftind],2)}, front = {round(data.ranges[frontind],2)}, right = {round(data.ranges[rightind],2)}')
+    print(leftbad,rightbad)
+
+    if(leftbad and not rightbad):
+        realx = min(299,x+75)
+    elif(rightbad and not leftbad):
+        realx = max(0, x-75)
+    else:
+        realx = x
+    print('x', x, 'realx', realx)
+    print(f'left = {round(data.ranges[leftind],2)}, front = {round(data.ranges[frontind],2)}, right = {round(data.ranges[rightind],2)}, \nhead = {0.401 * (x-150)}, \nrealhead = {0.401 * (realx-150)}')
 
     #m = min(ranges)
 
