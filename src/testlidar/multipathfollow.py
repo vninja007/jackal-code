@@ -6,7 +6,8 @@ import numpy as np
 from sensor_msgs.msg import LaserScan
 def callback(data):
     #print(type(list(data)))
-
+    W_MAX = 0.7
+    V_MAX = 0.3
     ranges = (data.ranges)
 #    backind = 0
 #    rightind = len(data.ranges)//4
@@ -15,20 +16,20 @@ def callback(data):
     leftind = (2*len(ranges))//3
     rightind = len(ranges)//3
     frontind = len(data.ranges)//2
-    print(rightind, leftind)
+    #print(rightind, leftind)
     mmWave = [i if i!=float('inf') else 0 for i in data.ranges[rightind:leftind+1][::-1][:300]]
 
     #assert len(mmWave)==300
     mmWave = sgf(sgf(mmWave,13,5),13,5)
     print('\n'.join(str(i) for i in mmWave))
-
-    peaks = [*fp(mmWave, height=4, distance=60)[0]]
+    #print(fp(mmWave, height=2.5, distance=60))
+    peaks = [*fp(mmWave, height=2.5, distance=60)[0]]
     if np.sign(np.diff(mmWave))[0] < 0 and mmWave[0] > 2:
         peaks = [0] + peaks
     if np.sign(np.diff(mmWave))[-1] > 0 and mmWave[-1] > 2:
         peaks = peaks + [299]
 #    print('peaks', [0.401 * (i-150) for i in peaks])
-
+    #print(peaks)
     newpeaks = []
     for x in peaks:
         leftbad = abs((mmWave[x]-mmWave[max(0,x-25)])/mmWave[x])>.6 and mmWave[max(0,x-25)]<4
@@ -41,14 +42,23 @@ def callback(data):
         elif(not rightbad and not leftbad):
             newpeaks.append(x)
 
-
+    
     peaks = [0.401 * (x-150) for x in newpeaks]
+    if not peaks:
+        toFollow = 180
+        w = W_MAX
+        v = 0
+    else:
+        toFollow = min(peaks)
+        w = W_MAX * (-toFollow)/60
+        v = V_MAX * (60 - abs(toFollow))/60
     #print('x', x, 'realx', realx)
-    print(f'left = {round(data.ranges[leftind],2)}, front = {round(data.ranges[frontind],2)}, right = {round(data.ranges[rightind],2)}')
+    #print(f'left = {round(data.ranges[leftind],2)}, front = {round(data.ranges[frontind],2)}, right = {round(data.ranges[rightind],2)}')
     print('peaks', peaks)
+    print('following', toFollow, '\nv = ', v, '\nw = ', w) 
     #m = min(ranges)
 
-
+   
     #print(m, ranges.index(m), ranges.index(m)/len(ranges))
     #rospy.loginfo("Received lidar data: %s", data)
 def listener():
