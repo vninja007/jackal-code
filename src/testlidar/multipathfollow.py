@@ -4,6 +4,27 @@ from scipy.signal import savgol_filter as sgf, find_peaks as fp
 import rospy
 import numpy as np
 from sensor_msgs.msg import LaserScan
+
+import rospy
+from geometry_msgs.msg import Twist
+import time
+
+def move_robot(linear_velocity, angular_velocity):
+    velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+    velocity_message = Twist()
+    velocity_message.linear.x = linear_velocity
+    velocity_message.angular.z = angular_velocity
+    #rate = rospy.Rate(200)  # 10 Hz
+    velocity_publisher.publish(velocity_message)
+    #rate.sleep()
+
+    # Stop the robot after the duration
+    #velocity_message.linear.x = 0
+    #velocity_message.angular.z = 0
+    #velocity_publisher.publish(velocity_message)
+
+
+
 def callback(data):
     #print(type(list(data)))
     W_MAX = 0.7
@@ -24,10 +45,10 @@ def callback(data):
     print('\n'.join(str(i) for i in mmWave))
     #print(fp(mmWave, height=2.5, distance=60))
     peaks = [*fp(mmWave, height=2.5, distance=60)[0]]
-    if np.sign(np.diff(mmWave))[0] < 0 and mmWave[0] > 2:
-        peaks = [0] + peaks
-    if np.sign(np.diff(mmWave))[-1] > 0 and mmWave[-1] > 2:
-        peaks = peaks + [299]
+    #if np.sign(np.diff(mmWave))[0] < 0 and mmWave[0] > 2:
+    #    peaks = [0] + peaks
+    #if np.sign(np.diff(mmWave))[-1] > 0 and mmWave[-1] > 2:
+    #    peaks = peaks + [299]
 #    print('peaks', [0.401 * (i-150) for i in peaks])
     #print(peaks)
     newpeaks = []
@@ -53,16 +74,19 @@ def callback(data):
         w = W_MAX * (-toFollow)/60
         v = V_MAX * (60 - abs(toFollow))/60
     #print('x', x, 'realx', realx)
-    #print(f'left = {round(data.ranges[leftind],2)}, front = {round(data.ranges[frontind],2)}, right = {round(data.ranges[rightind],2)}')
+    print(f'left = {round(data.ranges[leftind],2)}, front = {round(data.ranges[frontind],2)}, right = {round(data.ranges[rightind],2)}')
     print('peaks', peaks)
     print('following', toFollow, '\nv = ', v, '\nw = ', w) 
-    #m = min(ranges)
+    move_robot(v,w)    
+#m = min(ranges)
 
    
     #print(m, ranges.index(m), ranges.index(m)/len(ranges))
     #rospy.loginfo("Received lidar data: %s", data)
 def listener():
     rospy.init_node('lidar_listener', anonymous=True)
+    #rospy.init_node('move_robot_node', anonymous=True)
+
     rospy.Subscriber('/velodyne/scan', LaserScan, callback)
     rospy.spin()
 
